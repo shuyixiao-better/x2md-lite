@@ -1,0 +1,7 @@
+name = "x2md-lite"
+compatibility_date = "2026-07-08"
+pages_build_output_dir = "./dist"
+
+[vars]
+X_API_BEARER_TOKEN = ""
+X_EXTRACT_API_KEY = ""

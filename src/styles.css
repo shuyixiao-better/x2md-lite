@@ -1,0 +1,102 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color: #102a43;
+  background-color: #eef4f7;
+  font-family:
+    "Iowan Old Style",
+    "Palatino Linotype",
+    "Book Antiqua",
+    Georgia,
+    serif;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+.markdown-preview {
+  color: #243b53;
+  line-height: 1.8;
+}
+
+.markdown-preview > :first-child {
+  margin-top: 0;
+}
+
+.markdown-preview > :last-child {
+  margin-bottom: 0;
+}
+
+.markdown-preview h1,
+.markdown-preview h2,
+.markdown-preview h3 {
+  color: #102a43;
+  line-height: 1.25;
+  margin: 1.25rem 0 0.75rem;
+}
+
+.markdown-preview h1 {
+  font-size: 1.875rem;
+}
+
+.markdown-preview h2 {
+  font-size: 1.35rem;
+}
+
+.markdown-preview p,
+.markdown-preview ul,
+.markdown-preview ol,
+.markdown-preview blockquote {
+  margin: 0.75rem 0;
+}
+
+.markdown-preview a {
+  color: #0f766e;
+}
+
+.markdown-preview blockquote {
+  border-left: 4px solid rgba(15, 118, 110, 0.35);
+  margin-left: 0;
+  padding-left: 1rem;
+  color: #486581;
+}
+
+.markdown-preview code {
+  background: rgba(15, 23, 42, 0.08);
+  border-radius: 0.375rem;
+  padding: 0.125rem 0.35rem;
+}
+
+.markdown-preview pre {
+  background: #0f172a;
+  border-radius: 1rem;
+  color: #f8fafc;
+  overflow-x: auto;
+  padding: 1rem;
+}
+
+.markdown-preview pre code {
+  background: transparent;
+  padding: 0;
+}
+
+.markdown-preview img {
+  border-radius: 1rem;
+  display: block;
+  margin: 1rem 0;
+  max-width: 100%;
+}
