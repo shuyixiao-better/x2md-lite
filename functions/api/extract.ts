@@ -12,9 +12,16 @@ type PagesContext = {
 
 export const onRequestPost = async ({ request, env }: PagesContext) => {
   try {
-    const body = (await request.json()) as { url?: unknown };
+    const body = (await request.json()) as {
+      url?: unknown;
+      bearerToken?: unknown;
+    };
     const result = await createExtractResult(
-      { url: typeof body.url === "string" ? body.url : "" },
+      {
+        url: typeof body.url === "string" ? body.url : "",
+        bearerToken:
+          typeof body.bearerToken === "string" ? body.bearerToken : undefined
+      },
       env
     );
 

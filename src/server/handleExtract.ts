@@ -18,7 +18,10 @@ export async function createExtractResult(
   }
 
   try {
-    const result = await extractXPost(body.url, env);
+    const result = await extractXPost(body.url, {
+      ...env,
+      X_API_BEARER_TOKEN: body.bearerToken?.trim() || env.X_API_BEARER_TOKEN
+    });
     const payload = buildMarkdownPayload({
       data: {
         sourceUrl: result.sourceUrl,

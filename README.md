@@ -20,6 +20,7 @@
 - 未配置 `X_API_BEARER_TOKEN` 时自动返回 mock 数据，方便本地开发
 - 生成 Markdown 原文与图文预览
 - 支持复制 Markdown 和下载 `.md` 文件
+- 支持前端按次传入 Bearer Token，便于自用联调
 
 ## 项目结构
 
@@ -63,6 +64,7 @@ npm run dev
 - `npm run dev` 会启动 Vite 开发服务器。
 - 开发模式下已内置 `/api/extract` 本地中间件，方便直接联调。
 - 如果没有配置 `X_API_BEARER_TOKEN`，页面会使用 mock 数据完成整条流程。
+- 页面也支持临时输入 Bearer Token，并随当前请求传给 `/api/extract`。
 
 ## Cloudflare 本地预览
 
@@ -106,6 +108,8 @@ npx wrangler pages project create x2md-lite
 X_API_BEARER_TOKEN=X API v2 Bearer Token
 ```
 
+也可以不配环境变量，直接在前端页面输入 Bearer Token。后端会优先使用当前请求里传入的 token，其次再读取环境变量。
+
 兼容说明：
 
 - 现在推荐使用 `X_API_BEARER_TOKEN`
@@ -141,6 +145,28 @@ Provider 会从 X API v2 响应中提取：
 - 图片信息 `includes.media`
 
 当前只将 `photo` 类型媒体转换成 Markdown 图片，视频和 GIF 不会被下载或渲染为媒体 section。
+
+## 如何获取 Bearer Token
+
+根据 X 官方文档，你可以这样获取：
+
+1. 打开 [X Developer Console](https://console.x.com/)
+2. 登录你的 X 账号并创建开发者账号
+3. 创建一个 App
+4. 进入 App 的 `Keys and tokens` 页面
+5. 生成或复制 Bearer Token
+
+官方参考：
+
+- [Getting Access](https://docs.x.com/x-api/getting-started/getting-access)
+- [Using and generating an app-only Bearer Token](https://docs.x.com/fundamentals/authentication/oauth-2-0/bearer-tokens)
+- [OAuth 2.0 overview](https://docs.x.com/fundamentals/authentication/oauth-2-0/overview)
+
+注意：
+
+- Bearer Token 是开发者凭证，不适合暴露给公开站点访客
+- 当前“前端动态传入 token”的模式更适合你自己使用、团队内部工具或临时调试
+- 如果未来要做真正公开的商用站点，建议只把 token 保存在服务端环境变量中
 
 ## Markdown 生成规则
 

@@ -16,9 +16,18 @@ function x2mdDevApiPlugin(): Plugin {
         const body = await readRequestBody(req);
 
         try {
-          const payload = JSON.parse(body) as { url?: unknown };
+          const payload = JSON.parse(body) as {
+            url?: unknown;
+            bearerToken?: unknown;
+          };
           const result = await createExtractResult(
-            { url: typeof payload.url === "string" ? payload.url : "" },
+            {
+              url: typeof payload.url === "string" ? payload.url : "",
+              bearerToken:
+                typeof payload.bearerToken === "string"
+                  ? payload.bearerToken
+                  : undefined
+            },
             {
               X_API_BEARER_TOKEN: process.env.X_API_BEARER_TOKEN,
               X_EXTRACT_API_KEY: process.env.X_EXTRACT_API_KEY

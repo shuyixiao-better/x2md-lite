@@ -14,6 +14,7 @@ type ExtractState =
 
 export default function App() {
   const [url, setUrl] = useState("");
+  const [bearerToken, setBearerToken] = useState("");
   const [extractState, setExtractState] = useState<ExtractState>({
     kind: "idle"
   });
@@ -48,7 +49,10 @@ export default function App() {
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({ url: trimmed })
+        body: JSON.stringify({
+          url: trimmed,
+          bearerToken: bearerToken.trim() || undefined
+        })
       });
 
       const data = (await response.json()) as
@@ -140,6 +144,61 @@ export default function App() {
             <p className="text-xs leading-5 text-slate-500">
               支持 `x.com` 与 `twitter.com` 公开帖子链接，且必须包含 `/status/`。
             </p>
+
+            <div className="rounded-3xl border border-slate-200 bg-slate-50/80 p-4">
+              <label
+                className="mb-2 block text-sm font-medium text-slate-700"
+                htmlFor="x-bearer-token"
+              >
+                X API Bearer Token（可选）
+              </label>
+              <input
+                id="x-bearer-token"
+                type="password"
+                value={bearerToken}
+                onChange={(event) => setBearerToken(event.target.value)}
+                placeholder="输入你的 Bearer Token；留空则尝试使用服务端环境变量"
+                className="h-12 w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm outline-none transition focus:border-teal-500 focus:ring-4 focus:ring-teal-100"
+              />
+              <div className="mt-3 space-y-2 text-xs leading-5 text-slate-600">
+                <p>
+                  获取方式：前往{" "}
+                  <a
+                    href="https://console.x.com/"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="font-medium text-teal-700 underline decoration-teal-300 underline-offset-4"
+                  >
+                    X Developer Console
+                  </a>{" "}
+                  创建 App，在 Keys and tokens 页面获取 Bearer Token。
+                </p>
+                <p>
+                  官方说明见{" "}
+                  <a
+                    href="https://docs.x.com/x-api/getting-started/getting-access"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="font-medium text-teal-700 underline decoration-teal-300 underline-offset-4"
+                  >
+                    Getting Access
+                  </a>{" "}
+                  和{" "}
+                  <a
+                    href="https://docs.x.com/fundamentals/authentication/oauth-2-0/bearer-tokens"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="font-medium text-teal-700 underline decoration-teal-300 underline-offset-4"
+                  >
+                    Bearer Tokens
+                  </a>
+                  。
+                </p>
+                <p className="rounded-2xl border border-amber-200 bg-amber-50 px-3 py-2 text-amber-800">
+                  这个模式更适合你自己或团队内部使用。公开部署时，不建议让普通访客输入你的开发者 Token。
+                </p>
+              </div>
+            </div>
 
             {extractState.kind === "error" ? (
               <div className="rounded-2xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700">

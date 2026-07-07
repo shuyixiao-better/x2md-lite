@@ -14,6 +14,7 @@ export type ExtractedXData = {
 
 export type ExtractRequestBody = {
   url: string;
+  bearerToken?: string;
 };
 
 export type ExtractResponseSuccess = {
